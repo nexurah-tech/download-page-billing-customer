@@ -25,12 +25,10 @@
             Copy the URL and paste it in your browser
           </div>
         </div>
-        <button class="mobile-overlay-dismiss" @click="dismissMobileOverlay">
-          Continue anyway
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
       </div>
     </div>
+    <!-- ═══════════════════════════ DESKTOP SITE CONTENT ═══════════════════════════ -->
+    <template v-if="!isMobile">
     <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
     <header class="site-header">
       <a class="brand" href="#top" aria-label="NexBill POS home">
@@ -644,6 +642,7 @@
         <p class="footer-copy">© 2026 Nexurah Tech. All rights reserved.</p>
       </div>
     </footer>
+    </template>
   </div>
 </template>
 
@@ -1109,23 +1108,4 @@ export default {
   color: #14b8a6;
 }
 
-.mobile-overlay-dismiss {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  color: #94a3b8;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
-}
-
-.mobile-overlay-dismiss:hover {
-  color: #0e3835;
-  background: rgba(14, 56, 53, 0.04);
-}
 </style>
