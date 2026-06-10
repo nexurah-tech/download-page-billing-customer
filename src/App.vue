@@ -1023,60 +1023,70 @@ export default {
 /* ── Mobile Device Overlay ───────────────────────────────── */
 .mobile-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
   z-index: 9999;
-  background: linear-gradient(145deg, #f0faf8 0%, #e6f7f4 100%);
+  background: linear-gradient(145deg, #eefaf7 0%, #e0f5f1 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 20px 16px;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .mobile-overlay-card {
   background: #ffffff;
   border: 1px solid rgba(14, 56, 53, 0.08);
-  border-radius: 24px;
-  padding: 44px 32px;
-  max-width: 400px;
+  border-radius: 20px;
+  padding: 36px 24px 28px;
+  max-width: 360px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 24px 64px -12px rgba(14, 56, 53, 0.12), 0 0 0 1px rgba(20, 184, 166, 0.06);
+  box-shadow: 0 20px 60px -8px rgba(14, 56, 53, 0.14), 0 0 0 1px rgba(20, 184, 166, 0.06);
+  box-sizing: border-box;
 }
 
 .mobile-overlay-icon {
-  width: 88px;
-  height: 88px;
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(20, 184, 166, 0.03) 100%);
-  border: 1px solid rgba(20, 184, 166, 0.2);
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(20, 184, 166, 0.03) 100%);
+  border: 1px solid rgba(20, 184, 166, 0.22);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   color: #14b8a6;
 }
 
 .mobile-overlay-title {
   font-family: 'Outfit', 'Inter', sans-serif;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #0e3835;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .mobile-overlay-desc {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #475569;
-  line-height: 1.65;
-  margin-bottom: 28px;
+  line-height: 1.6;
+  margin-bottom: 22px;
 }
 
 .mobile-overlay-tips {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 32px;
+  gap: 10px;
+  margin-bottom: 24px;
   text-align: left;
 }
 
@@ -1084,13 +1094,14 @@ export default {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #0e3835;
   background: rgba(20, 184, 166, 0.05);
   border: 1px solid rgba(20, 184, 166, 0.1);
   border-radius: 10px;
-  padding: 12px 16px;
+  padding: 11px 14px;
+  line-height: 1.4;
 }
 
 .mobile-tip svg {
@@ -1104,8 +1115,8 @@ export default {
   gap: 6px;
   background: none;
   border: none;
-  color: #64748b;
-  font-size: 0.82rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   padding: 8px 12px;
