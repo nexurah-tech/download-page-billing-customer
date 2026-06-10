@@ -1,5 +1,36 @@
 <template>
   <div class="app-wrapper">
+    <!-- ═══════════════════════════ MOBILE OVERLAY ═══════════════════════════ -->
+    <div v-if="isMobile" class="mobile-overlay">
+      <div class="mobile-overlay-card">
+        <div class="mobile-overlay-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="13" rx="2" ry="2"/>
+            <polyline points="8 21 12 17 16 21"/>
+            <line x1="12" y1="17" x2="12" y2="13"/>
+          </svg>
+        </div>
+        <h1 class="mobile-overlay-title">Built for Desktop</h1>
+        <p class="mobile-overlay-desc">
+          <strong>NexBill POS</strong> is a Windows desktop application.
+          This download page is best viewed on a <strong>laptop or desktop computer</strong> for the full experience.
+        </p>
+        <div class="mobile-overlay-tips">
+          <div class="mobile-tip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9H4a2 2 0 0 0-2 2v.5A2.5 2.5 0 0 0 4.5 14H8l1 7h6l1-7h3.5A2.5 2.5 0 0 0 22 11.5V11a2 2 0 0 0-2-2z"/><path d="M12 3v6"/></svg>
+            Open this link on your PC or laptop
+          </div>
+          <div class="mobile-tip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy the URL and paste it in your browser
+          </div>
+        </div>
+        <button class="mobile-overlay-dismiss" @click="dismissMobileOverlay">
+          Continue anyway
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
     <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
     <header class="site-header">
       <a class="brand" href="#top" aria-label="NexBill POS home">
@@ -621,6 +652,9 @@ export default {
   name: 'App',
   data() {
     return {
+      // Mobile detection
+      isMobile: false,
+
       // Installer state: 'idle', 'downloading', 'completed'
       downloadState: 'idle',
       downloadProgress: 0,
@@ -841,6 +875,7 @@ export default {
   },
   mounted() {
     this.detectOS();
+    this.detectMobile();
     // Register scroll and arrow keys event listener for lightbox
     window.addEventListener('keydown', this.handleKeyDown);
   },
@@ -849,6 +884,15 @@ export default {
     if (this.downloadTimer) clearInterval(this.downloadTimer);
   },
   methods: {
+    detectMobile() {
+      const ua = window.navigator?.userAgent || '';
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+      const isNarrowScreen = window.innerWidth <= 768;
+      this.isMobile = isMobileUA || isNarrowScreen;
+    },
+    dismissMobileOverlay() {
+      this.isMobile = false;
+    },
     detectOS() {
       const platform = window.navigator?.userAgent || '';
       if (platform.includes('Windows') || platform.includes('Win')) {
@@ -974,5 +1018,103 @@ export default {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* ── Mobile Device Overlay ───────────────────────────────── */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(145deg, #f0faf8 0%, #e6f7f4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.mobile-overlay-card {
+  background: #ffffff;
+  border: 1px solid rgba(14, 56, 53, 0.08);
+  border-radius: 24px;
+  padding: 44px 32px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 24px 64px -12px rgba(14, 56, 53, 0.12), 0 0 0 1px rgba(20, 184, 166, 0.06);
+}
+
+.mobile-overlay-icon {
+  width: 88px;
+  height: 88px;
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(20, 184, 166, 0.03) 100%);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: #14b8a6;
+}
+
+.mobile-overlay-title {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0e3835;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.mobile-overlay-desc {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+.mobile-overlay-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.mobile-tip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0e3835;
+  background: rgba(20, 184, 166, 0.05);
+  border: 1px solid rgba(20, 184, 166, 0.1);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.mobile-tip svg {
+  flex-shrink: 0;
+  color: #14b8a6;
+}
+
+.mobile-overlay-dismiss {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.mobile-overlay-dismiss:hover {
+  color: #0e3835;
+  background: rgba(14, 56, 53, 0.04);
 }
 </style>
